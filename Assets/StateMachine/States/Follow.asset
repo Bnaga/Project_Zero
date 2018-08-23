@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06881e62d640cdc459cc9a818d5f19eb, type: 3}
+  m_Name: Follow
+  m_EditorClassIdentifier: 
+  actions:
+  - {fileID: 11400000, guid: dc227b2550f330149be515720da94635, type: 2}
+  transistions:
+  - decision: {fileID: 11400000, guid: 2c3b76114ef1c5b409d9b7f252fd1d13, type: 2}
+    trueState: {fileID: 11400000, guid: fd90d4acf68ea8948adb1a59c66107d0, type: 2}
+    falseState: {fileID: 11400000, guid: 6c85728f458a7504294e47ad5f59887d, type: 2}
+  sceneGizmoColor: {r: 1, g: 0, b: 0, a: 1}
