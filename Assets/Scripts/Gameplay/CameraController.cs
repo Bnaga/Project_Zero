@@ -24,6 +24,11 @@ public class CameraController : MonoBehaviour
 
 	public bool invertY;
 	public PauseMenu pauseMenu;
+
+	public Vector3 pivotOffset;
+	public Vector3 startPos;
+	public bool movePivot = false;
+	private float vert = 0;
 	
 	// Use this for initialization
 	void Start ()
@@ -36,6 +41,7 @@ public class CameraController : MonoBehaviour
 		pivot.transform.position = target.transform.position;
 		gunPivot.transform.position = target.transform.position;
 		pivot.transform.parent = target.transform;
+		startPos = pivot.position;
 
 		Cursor.lockState = CursorLockMode.Locked;
 	}
@@ -57,12 +63,12 @@ public class CameraController : MonoBehaviour
 			if (invertY)
 			{
 				pivot.Rotate(vertical, 0, 0);
-				gunPivot.Rotate(vertical, 0, 0);
+				gunPivot.Rotate(vert, 0, 0);
 			}
 			else
 			{
 				pivot.Rotate(-vertical, 0, 0);
-				gunPivot.Rotate(-vertical, 0, 0);
+				gunPivot.Rotate(-vert, 0, 0);
 			}
 
 			//limit up/down camera rotation
@@ -75,7 +81,18 @@ public class CameraController : MonoBehaviour
 			if (pivot.rotation.eulerAngles.x > 180f && pivot.rotation.eulerAngles.x < 360f + minViewAngle)
 			{
 				pivot.rotation = Quaternion.Euler(360f + minViewAngle, 0, 0);
-				gunPivot.rotation = Quaternion.Euler(360f + minViewAngle, 0, 0);
+				gunPivot.rotation = Quaternion.Euler((360f + minViewAngle), 0, 0);
+				
+			}
+
+			if (movePivot)
+			{
+				if (pivot.rotation.eulerAngles.x > 360f + minViewAngle && pivot.rotation.eulerAngles.x < 320)
+				{
+					
+					pivot.position = new Vector3(pivot.position.x, pivot.position.y + vertical * pivotOffset.y,
+						pivot.position.z);
+				}
 			}
 
 			//move the camera based on current rotation of target
@@ -91,7 +108,7 @@ public class CameraController : MonoBehaviour
 			}
 
 			//transform.position = target.position - offset;
-			transform.LookAt(target.position + targetOffset);
+			transform.LookAt(pivot.position + targetOffset);
 		}
 	}
 }
